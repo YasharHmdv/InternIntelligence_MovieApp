@@ -1,0 +1,22 @@
+spring:
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: false
+    open-in-view: false
+  security:
+    secret: aGVsbG9mcm9tamF2YXNwcmluZ2NvdXJzZXdvcmx3ZWJzZXJ2aWNlaGVsbG9mcm9tamF2YXNwcmluZ2NvdXJzZXdvcmx3ZWJzZXJ2aWNl
+  token:
+    expirationTime: 60000
+    jwtCookieName: movieapp
+  datasource:
+    url: jdbc:mysql://localhost:3306/movieapp
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  properties:
+    hibernate:
+      #optional - enable SQL statements formatting.
+      format_sql: true
+      #optional - generate statistics to check if L2/query cache is actually being used.
+      generate_statistics: false

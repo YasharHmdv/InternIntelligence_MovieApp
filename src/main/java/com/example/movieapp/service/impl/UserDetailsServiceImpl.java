@@ -1,7 +1,8 @@
-package com.example.movieapp.service;
+package com.example.movieapp.service.impl;
 
 import com.example.movieapp.entity.User;
 import com.example.movieapp.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-  @Autowired
-  UserRepository userRepository;
+  private final UserRepository userRepository;
 
   @Override
   @Transactional

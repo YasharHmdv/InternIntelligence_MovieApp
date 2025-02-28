@@ -2,7 +2,7 @@ package com.example.movieapp.config;
 
 import com.example.movieapp.security.AuthEntryPointJwt;
 import com.example.movieapp.security.AuthTokenFilter;
-import com.example.movieapp.service.UserDetailsServiceImpl;
+import com.example.movieapp.service.impl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

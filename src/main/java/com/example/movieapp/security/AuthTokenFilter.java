@@ -2,7 +2,7 @@ package com.example.movieapp.security;
 
 import java.io.IOException;
 
-import com.example.movieapp.service.UserDetailsServiceImpl;
+import com.example.movieapp.service.impl.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

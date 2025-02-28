@@ -3,7 +3,7 @@ package com.example.movieapp.security;
 import java.security.Key;
 import java.util.Date;
 
-import com.example.movieapp.service.UserDetailsImpl;
+import com.example.movieapp.service.impl.UserDetailsImpl;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 

@@ -2,6 +2,9 @@ package com.example.movieapp.entity;
 
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,8 +16,8 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private long id;
+    @Column(name = "movieId", updatable = false)
+    private Long movieId;
 
     @Column(name = "name")
     private String name;
@@ -28,35 +31,32 @@ public class Movie {
     @Column(name = "base64Img")
     private String base64Img;
 
-    @Column(name = "languageId")
-    private Integer languageId;
-
-    @Column(name = "genreId")
-    private Integer genreId;
-
     @Column(name = "createdBy")
     private Integer createdBy;
 
-    @Column(name = "active")
-    private String active;
+    private boolean active;
 
     @Column(name = "createdTimestamp")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdTimestamp;
 
     @Column(name = "lastUpdtTimestamp")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastUpdtTimestamp;
 
-    @Transient
-    private String genre;
+    @Enumerated(EnumType.STRING)
+    private Languages language;
 
-    @Transient
-    private String language;
+    @Enumerated(EnumType.STRING)
+    private Genres genre;
+
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
+    @JsonIgnore
     private Ratings rating;
 
-    @Transient
-    private List<Review> reviews;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Review> reviews = new ArrayList<>();
 
 }

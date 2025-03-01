@@ -19,16 +19,18 @@ import java.util.stream.Collectors;
 public class MovieController {
     private final MovieService movieService;
     private static final Logger LOG = LoggerFactory.getLogger(MovieService.class);
-    @RequestMapping(value = "/languages", method = RequestMethod.GET)
+
+    @GetMapping("/languages")
     public List<Languages> getAllLanguages() {
         return movieService.getAllLanguages();
     }
-    @RequestMapping(value = "/genres", method = RequestMethod.GET)
+
+    @GetMapping("/genres")
     public List<Genres> getAllGenres() {
         return movieService.getAllGenres();
     }
 
-    @RequestMapping(value = "/popular", method = RequestMethod.GET)
+    @GetMapping( "/popular")
     public List<Movie> getPopularMovies() {
         LOG.info("Fetch Popular Movies...");
         List<Movie> list = movieService.getAllMovies();
@@ -38,29 +40,30 @@ public class MovieController {
         LOG.debug(": " + ratedMovies.size());
         return ratedMovies;
     }
-    @RequestMapping(value = "/{movieId}", method = RequestMethod.GET)
-    public List<Movie> getMovieInfo(@PathVariable("movieId") Integer movieId) {
+
+    @GetMapping("/{movieId}")
+    public List<Movie> getMovieInfo(@PathVariable("movieId") Long movieId) {
         return movieService.getMovieInfo(movieId);
     }
 
-    @RequestMapping(value = "/review", method = RequestMethod.POST)
+    @PostMapping("/review")
     public List<Movie> addMovieReview(@RequestBody Review reviews) {
         LOG.info("Add Movie Reviews...");
         movieService.addReview(reviews);
 
-        return movieService.getMovieInfo(reviews.getMovieId());
+        return movieService.getMovieInfo(reviews.getReviewId());
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<Movie> getAllMovies() {
         LOG.info("Fetch all the Movies...");
         return movieService.getAllMovies();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public List<Movie> addMovie(@RequestBody Movie movie) {
+    @PostMapping
+    public Movie addMovie(@RequestBody Movie movie) {
         LOG.info("Add a Movie...");
-        movieService.addMovie(movie);
-        return movieService.getAllMovies();
+        return movieService.addMovie(movie);
+
     }
 }

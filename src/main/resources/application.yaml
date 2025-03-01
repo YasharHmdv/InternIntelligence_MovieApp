@@ -1,3 +1,5 @@
+server:
+  port: 8089
 spring:
   jpa:
     hibernate.ddl-auto: update
@@ -7,7 +9,7 @@ spring:
   security:
     secret: aGVsbG9mcm9tamF2YXNwcmluZ2NvdXJzZXdvcmx3ZWJzZXJ2aWNlaGVsbG9mcm9tamF2YXNwcmluZ2NvdXJzZXdvcmx3ZWJzZXJ2aWNl
   token:
-    expirationTime: 60000
+    expirationTime: 6000000
     jwtCookieName: movieapp
   datasource:
     url: jdbc:mysql://localhost:3306/movieapp

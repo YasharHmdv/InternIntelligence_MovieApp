@@ -1,5 +1,6 @@
 package com.example.movieapp.config;
 
+import com.example.movieapp.exception.CustomAuthenticationEntryPoint;
 import com.example.movieapp.security.AuthEntryPointJwt;
 import com.example.movieapp.security.AuthTokenFilter;
 import com.example.movieapp.service.impl.UserDetailsServiceImpl;
@@ -56,10 +57,12 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/movie").permitAll()
+                                .requestMatchers("/movie/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
                                 .anyRequest().authenticated()
                 );

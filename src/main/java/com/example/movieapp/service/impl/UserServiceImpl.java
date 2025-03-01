@@ -86,13 +86,13 @@ public class UserServiceImpl implements UserService {
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "admin":
+                    case "ROLE_ADMIN":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
 
                         break;
-                    case "mod":
+                    case "ROLE_MODERATOR":
                         Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
@@ -108,8 +108,25 @@ public class UserServiceImpl implements UserService {
 
         user.setRoles(roles);
         userRepository.save(user);
+        // Authenticate user immediately after signup
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(signUpRequest.getUsername(), signUpRequest.getPassword()));
 
-        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // Generate JWT token
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+
+        List<String> userRoles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .body(new UserInfoResponse(userDetails.getId(),
+                        userDetails.getUsername(),
+                        userDetails.getEmail(),
+                        userRoles));
     }
 
     @Override

@@ -13,8 +13,8 @@ public interface MovieService {
     List<Languages> getAllLanguages();
     List<Genres> getAllGenres();
     List<Movie> getAllMovies();
-    void addMovie(Movie movie);
-    List<Movie> getMovieInfo(Integer movieId);
+    Movie addMovie(Movie movie);
+    List<Movie> getMovieInfo(Long movieId);
     void updateLanguageGenres(List<Movie> list);
     void addReview(Review reviews);
 

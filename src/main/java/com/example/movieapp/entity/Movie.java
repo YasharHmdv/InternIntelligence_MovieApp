@@ -2,12 +2,13 @@ package com.example.movieapp.entity;
 
 import java.util.*;
 
+import com.example.movieapp.entity.enums.Genres;
+import com.example.movieapp.entity.enums.Languages;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "movie")
@@ -55,7 +56,7 @@ public class Movie {
     @JsonIgnore
     private Ratings rating;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Review> reviews = new ArrayList<>();
 

@@ -1,5 +1,6 @@
 package com.example.movieapp.entity;
 
+import com.example.movieapp.entity.enums.ERole;
 import jakarta.persistence.*;
 import lombok.Data;
 

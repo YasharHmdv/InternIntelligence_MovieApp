@@ -18,13 +18,10 @@ public class Review {
     private Long reviewId;
 
     @Column(name = "createdUserId")
-    private Integer createdUserId;
+    private Long createdUserId;
 
     @Column(name = "createdUserName")
     private String createdUserName;
-
-    @Column(name = "likeMovie")
-    private String likeMovie;
 
     @Column(name = "comments")
     private String comments;

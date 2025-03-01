@@ -1,6 +1,8 @@
 package com.example.movieapp.service.impl;
 
 import com.example.movieapp.entity.*;
+import com.example.movieapp.entity.enums.Genres;
+import com.example.movieapp.entity.enums.Languages;
 import com.example.movieapp.repository.*;
 import com.example.movieapp.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +30,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getAllMovies() {
-        List<Movie> movieList = movieRepository.findAll();
+        List<Movie> movieList = movieRepository.findAllMoviesWithReviews();
 
         return movieList;
     }

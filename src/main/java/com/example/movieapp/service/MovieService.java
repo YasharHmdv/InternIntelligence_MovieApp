@@ -1,7 +1,7 @@
 package com.example.movieapp.service;
 
-import com.example.movieapp.entity.Genres;
-import com.example.movieapp.entity.Languages;
+import com.example.movieapp.entity.enums.Genres;
+import com.example.movieapp.entity.enums.Languages;
 import com.example.movieapp.entity.Movie;
 import com.example.movieapp.entity.Review;
 import org.springframework.stereotype.Service;

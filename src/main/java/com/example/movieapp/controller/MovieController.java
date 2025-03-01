@@ -1,7 +1,7 @@
 package com.example.movieapp.controller;
 
-import com.example.movieapp.entity.Genres;
-import com.example.movieapp.entity.Languages;
+import com.example.movieapp.entity.enums.Genres;
+import com.example.movieapp.entity.enums.Languages;
 import com.example.movieapp.entity.Movie;
 import com.example.movieapp.entity.Review;
 import com.example.movieapp.service.MovieService;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/movie")
+@RequestMapping("/api")
 public class MovieController {
     private final MovieService movieService;
     private static final Logger LOG = LoggerFactory.getLogger(MovieService.class);
@@ -23,11 +23,6 @@ public class MovieController {
     @GetMapping("/languages")
     public List<Languages> getAllLanguages() {
         return movieService.getAllLanguages();
-    }
-
-    @GetMapping("/genres")
-    public List<Genres> getAllGenres() {
-        return movieService.getAllGenres();
     }
 
     @GetMapping( "/popular")

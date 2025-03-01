@@ -4,7 +4,7 @@ import com.example.movieapp.dto.LoginRequest;
 import com.example.movieapp.dto.MessageResponse;
 import com.example.movieapp.dto.SignupRequest;
 import com.example.movieapp.dto.UserInfoResponse;
-import com.example.movieapp.entity.ERole;
+import com.example.movieapp.entity.enums.ERole;
 import com.example.movieapp.entity.Role;
 import com.example.movieapp.entity.User;
 import com.example.movieapp.repository.RoleRepository;

@@ -61,10 +61,13 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/movie/swagger-ui/**").permitAll()
+                                .requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
                                 .requestMatchers("/movie/api").permitAll()
                                 .requestMatchers("/movie/api/genres").permitAll()
-                                .requestMatchers("/movie/**").permitAll()
-                                .requestMatchers("/movie/api/test/**").permitAll()
+                                .requestMatchers("/api/**").permitAll()
+                                .requestMatchers("/api/test/**").permitAll()
                                 .requestMatchers("/review/**").permitAll()
                                 .anyRequest().authenticated()
                 );

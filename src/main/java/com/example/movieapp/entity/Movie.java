@@ -17,7 +17,6 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "movieId", updatable = false)
     private Long movieId;
 
     @Column(name = "name")
@@ -52,8 +51,7 @@ public class Movie {
     private Genres genre;
 
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Ratings rating;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

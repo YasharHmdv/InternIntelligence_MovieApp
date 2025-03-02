@@ -17,7 +17,6 @@ import java.util.Date;
 public class Ratings {
 
 	@Id
-	@Column(name = "ratingId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long ratingId;
 

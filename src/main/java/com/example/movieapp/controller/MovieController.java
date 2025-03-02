@@ -8,8 +8,10 @@ import com.example.movieapp.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,18 +24,20 @@ public class MovieController {
 
     @GetMapping("/languages")
     public List<Languages> getAllLanguages() {
-        return movieService.getAllLanguages();
+        return Arrays.asList(Languages.values());
     }
 
     @GetMapping( "/popular")
-    public List<Movie> getPopularMovies() {
+    public ResponseEntity<List<Movie>> getPopularMovies() {
         LOG.info("Fetch Popular Movies...");
-        List<Movie> list = movieService.getAllMovies();
+      /*  List<Movie> list = movieService.getAllMovies();
         LOG.info(": " + list.size());
         List<Movie> ratedMovies = list.parallelStream().filter(obj -> null != obj.getRating())
                 .collect(Collectors.toList());
         LOG.debug(": " + ratedMovies.size());
-        return ratedMovies;
+        return ratedMovies;*/
+        List<Movie> movieList = movieService.getPopularMovies();
+        return ResponseEntity.ok(movieList);
     }
 
     @GetMapping("/{movieId}")
@@ -41,13 +45,6 @@ public class MovieController {
         return movieService.getMovieInfo(movieId);
     }
 
-    @PostMapping("/review")
-    public List<Movie> addMovieReview(@RequestBody Review reviews) {
-        LOG.info("Add Movie Reviews...");
-        movieService.addReview(reviews);
-
-        return movieService.getMovieInfo(reviews.getReviewId());
-    }
 
     @GetMapping
     public List<Movie> getAllMovies() {
@@ -55,10 +52,21 @@ public class MovieController {
         return movieService.getAllMovies();
     }
 
+    @PutMapping("/update/{movieId}")
+    public ResponseEntity<Movie> updateMovie(@PathVariable Long movieId,@RequestBody Movie movie) {
+        LOG.info("Updating Movie...");
+        movieService.update(movieId,movie);
+        return ResponseEntity.ok(movie);
+    }
+
     @PostMapping
     public Movie addMovie(@RequestBody Movie movie) {
         LOG.info("Add a Movie...");
         return movieService.addMovie(movie);
 
+    }
+    @DeleteMapping("/{movieId}")
+    public void deleteMovie(@PathVariable Long movieId) {
+        movieService.deleteById(movieId);
     }
 }

@@ -7,6 +7,7 @@ import com.example.movieapp.repository.ReviewRepository;
 import com.example.movieapp.service.MovieService;
 import com.example.movieapp.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,27 @@ public class ReviewServiceImpl implements ReviewService {
         }
         Review save = reviewRepository.save(review);
         return ResponseEntity.ok(save);
+    }
+
+    @Override
+    public ResponseEntity<Review> update(Long reviewId, Review reviewRequest) {
+        Optional<Review> existingReviewOpt = reviewRepository.findById(reviewId);
+        if (!existingReviewOpt.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        Review existingReview = existingReviewOpt.get();
+        existingReview.setCreatedUserId(reviewRequest.getCreatedUserId());
+        existingReview.setCreatedUserName(reviewRequest.getCreatedUserName());
+        existingReview.setComments(reviewRequest.getComments());
+        existingReview.setRating(reviewRequest.getRating());
+        existingReview.setCreateTimestamp(reviewRequest.getCreateTimestamp());
+
+        if (reviewRequest.getMovie() != null){
+            existingReview.setMovie(reviewRequest.getMovie());
+        }
+        Review updatedReview = reviewRepository.save(existingReview);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedReview);
+
     }
 }

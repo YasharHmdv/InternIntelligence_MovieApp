@@ -3,6 +3,8 @@ package com.example.movieapp.service.impl;
 import com.example.movieapp.entity.*;
 import com.example.movieapp.entity.enums.Genres;
 import com.example.movieapp.entity.enums.Languages;
+import com.example.movieapp.exception.GlobalExceptionHandler;
+import com.example.movieapp.exception.MovieNotFoundException;
 import com.example.movieapp.repository.*;
 import com.example.movieapp.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
     private final ReviewRepository reviewRepository;
     private final RatingRepository ratingRepository;
+    private final GlobalExceptionHandler globalExceptionHandler;
 
     @Override
     public List<Movie> getAllMovies() {
@@ -133,12 +136,14 @@ public class MovieServiceImpl implements MovieService {
     @Override
     @Transactional
     public void deleteById(Long movieId) {
-        if (movieRepository.findById(movieId).isPresent() && ratingRepository.existsById(movieId)){
-            ratingRepository.deleteByMovieId(movieId);
+        Optional<Movie> movieOptional = movieRepository.findById(movieId);
+        if (movieOptional.isPresent()){
+            if (ratingRepository.existsById(movieId)){
+                ratingRepository.deleteByMovieId(movieId);
+            }
             movieRepository.deleteById(movieId);
         }else {
-            throw new RuntimeException("Movie not found");
+            throw new MovieNotFoundException("Movie not found with :D"+movieId);
         }
-
     }
 }

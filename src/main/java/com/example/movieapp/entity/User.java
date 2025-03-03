@@ -26,16 +26,16 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotBlank
+  @NotBlank(message = "Username must not be blank")
   @Size(max = 20)
   private String username;
 
-  @NotBlank
+  @NotBlank(message = "Email must not be blank")
+  @Email(message = "Email should be valid")
   @Size(max = 50)
-  @Email
   private String email;
 
-  @NotBlank
+  @NotBlank(message = "Password must not be blank")
   @Size(max = 120)
   private String password;
 
@@ -46,5 +46,8 @@ public class User {
   private Set<Role> roles = new HashSet<>();
 
   public User(String username, String email, String encode) {
+    this.username = username;
+    this.email = email;
+    this.password = encode;
   }
 }

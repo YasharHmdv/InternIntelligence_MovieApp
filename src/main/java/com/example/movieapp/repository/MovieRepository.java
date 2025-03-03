@@ -18,4 +18,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             "ORDER BY r.rating DESC",
             nativeQuery = true)
     List<Movie> findTop10ByOrderByRating_LikesDesc();
+
+    void deleteById(Long movieId);
 }

@@ -22,4 +22,9 @@ public class ReviewController {
         return reviewService.update(reviewId,reviewRequest);
     }
 
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<Review> getReviewById(@PathVariable Long reviewId){
+        return reviewService.getReviewById(reviewId);
+    }
+
 }

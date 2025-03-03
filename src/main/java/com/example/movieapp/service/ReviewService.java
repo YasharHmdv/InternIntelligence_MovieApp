@@ -9,4 +9,6 @@ public interface ReviewService {
     ResponseEntity<Review> save(Review review);
 
     ResponseEntity<Review> update(Long reviewId, Review reviewRequest);
+
+    ResponseEntity<Review> getReviewById(Long reviewId);
 }

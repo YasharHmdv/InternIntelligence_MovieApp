@@ -63,4 +63,14 @@ public class ReviewServiceImpl implements ReviewService {
         return ResponseEntity.status(HttpStatus.OK).body(updatedReview);
 
     }
+
+    @Override
+    public ResponseEntity<Review> getReviewById(Long reviewId) {
+        if (reviewRepository.existsById(reviewId)){
+            Review review = reviewRepository.findById(reviewId).get();
+            return ResponseEntity.status(HttpStatus.OK).body(review);
+        }else {
+            throw new RuntimeException("NOT FOUND REVIEW WITH id:"+ reviewId);
+        }
+    }
 }

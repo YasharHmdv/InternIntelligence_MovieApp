@@ -40,3 +40,21 @@ access control using Spring Security.<br/>
 - MySQL Database<br/>
 - GRADLE (for dependency management)<br/>
 - Postman or any API testing tool (for testing API endpoints)<br/>
+
+  ## Setup & Installation
+1. Clone the Repository git clone https://github.com/YasharHmdv/InternIntelligence_MovieApp
+2. Set Up MySQL Database
+   Make sure MySQL is installed and running on your machine. Create a new database for the project.
+
+
+## CREATE DATABASE movieapp_db;
+3. Configure Database Connection<br/>
+   Open src/main/resources/application.properties and set your MySQL connection properties:
+
+
+spring.datasource.url=jdbc:mysql://localhost:3306/movieapp_db<br/>
+spring.datasource.username=root<br/>
+spring.datasource.password=yourpassword<br/>
+spring.jpa.hibernate.ddl-auto=update<br/>
+spring.jpa.show-sql=true<br/>
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver<br/>

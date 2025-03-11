@@ -2,16 +2,15 @@ package com.example.movieapp.controller;
 
 import com.example.movieapp.dto.LoginRequest;
 import com.example.movieapp.dto.SignupRequest;
+import com.example.movieapp.entity.User;
 import com.example.movieapp.service.UserService;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -36,6 +35,11 @@ public class AuthController {
     @PostMapping("/signout")
     public ResponseEntity<?> logoutUser() {
         return userService.logoutUser();
+    }
+
+    @GetMapping("/get-users")
+    public List<User> getUsers() {
+        return userService.getUsers();
     }
 
 }

@@ -12,6 +12,7 @@ import com.example.movieapp.repository.UserRepository;
 import com.example.movieapp.security.JwtUtils;
 import com.example.movieapp.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder encoder;
 
     private final JwtUtils jwtUtils;
+    private final ModelMapper modelMapper;
     @Override
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
@@ -134,6 +136,12 @@ public class UserServiceImpl implements UserService {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body(new MessageResponse("You've been signed out!"));
+    }
+
+    @Override
+    public List<User> getUsers() {
+        List<User> all = userRepository.findAll();
+        return all;
     }
 
 }
